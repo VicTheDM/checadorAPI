@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const { PORT } = require('./config/properties');
+const { PORT } = require('./src/config/properties');
 const mongoose = require('mongoose');
-var routes = require('../src/routes/login.routes');
+var routes = require('./src/routes/login.routes');
 const dbURI = 'mongodb+srv://SaryChan4Ev4:L4L30M45H3rM054@mensajeria.psslkdx.mongodb.net/?retryWrites=true&w=majority'
 const router=express.Router();
 
@@ -28,10 +28,10 @@ app.use(express.json()); // parse application/json
 app.use(express.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
 // app.use(routes);
 // Rutas
-app.use('/api', require('./routes/login.routes'));
-app.use('/eventos', require('./controllers/eventos'));
-app.use('/participante', require('./controllers/participantes'));
-app.use('/asistencias', require('./controllers/asistencias'));
+app.use('/api', require('./src/routes/login.routes'));
+app.use('/eventos', require('./src/controllers/eventos'));
+app.use('/participante', require('./src/controllers/participantes'));
+app.use('/asistencias', require('./src/controllers/asistencias'));
 // Servidor
 app.listen(PORT, () => console.log(`Escuchando por el puerto ${PORT}`) );
 
