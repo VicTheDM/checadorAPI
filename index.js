@@ -5,7 +5,9 @@ const mongoose = require('mongoose');
 var routes = require('./src/routes/login.routes');
 const dbURI = 'mongodb+srv://SaryChan4Ev4:L4L30M45H3rM054@mensajeria.psslkdx.mongodb.net/?retryWrites=true&w=majority'
 const router=express.Router();
-
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 const conectarDB = async () => {
     try {
         await mongoose.connect( dbURI,{
