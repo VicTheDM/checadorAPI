@@ -5,10 +5,13 @@ const dbURI = 'mongodb+srv://SaryChan4Ev4:L4L30M45H3rM054@mensajeria.psslkdx.mon
 const conectarDB = async () => {
     try {
         await mongoose.connect( dbURI,{
+            ssl:true,
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false,
-            useCreateIndex: true
+            useCreateIndex: true,  
+            sslValidate: false,
+
         });
         console.log('DB Atlas Conectado')
     } catch (error) {

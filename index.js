@@ -3,16 +3,20 @@ const cors = require('cors');
 const { PORT } = require('./src/config/properties');
 const mongoose = require('mongoose');
 var routes = require('./src/routes/login.routes');
-const dbURI = 'mongodb+srv://SaryChan4Ev4:L4L30M45H3rM054@mensajeria.psslkdx.mongodb.net/?retryWrites=true&w=majority'
+const dbURI = 'mongodb+srv://SaryChan4Ev4:L4L30M45H3rM054@mensajeria.psslkdx.mongodb.net/test?ssl=true?retryWrites=true&w=majority'
 const router=express.Router();
+const  https = require('https')
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
+const fs = require('fs')
 const conectarDB = async () => {
     try {
         await mongoose.connect( dbURI,{
             useNewUrlParser: true,
-            useUnifiedTopology: true,
+            ssl: true,
+            useUnifiedTopology: true,  
+            sslValidate: false
             // useFindAndModify: false,
             // useCreateIndex: true
         });
@@ -35,5 +39,9 @@ app.use('/eventos', require('./src/controllers/eventos'));
 app.use('/participante', require('./src/controllers/participantes'));
 app.use('/asistencias', require('./src/controllers/asistencias'));
 // Servidor
-app.listen(PORT, () => console.log(`Escuchando por el puerto ${PORT}`) );
+https.createServer({
+    key: fs.readFileSync('./key.pem', 'utf8'),
+    cert: fs.readFileSync('./server.crt', 'utf8')
+}, app).listen(PORT, () => console.log(`Escuchando por el puerto ${PORT}`) );
+// app.listen(PORT, () => console.log(`Escuchando por el puerto ${PORT}`) );
 
